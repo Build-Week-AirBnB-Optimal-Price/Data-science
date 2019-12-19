@@ -6,7 +6,17 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+flask = "*"
+flask-sqlalchemy = "*"
+tweepy = "*"
+basilica = "*"
+python-decouple = "*"
+numpy = "*"
+sklearn = "*"
 gunicorn = "*"
+waitress = "*"
+heroku = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"
