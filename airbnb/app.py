@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 # from .models import DB
 
 app = Flask(__name__)
-# APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+# APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///airbnb_db.sqlite3'
 # DB = SQLAlchemy(APP)
 
 @app.route('/')
