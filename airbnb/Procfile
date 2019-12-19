@@ -1,1 +1,1 @@
-waitress-serve --call "twitoff:create_app"
+web: gunicorn airbnb:app
