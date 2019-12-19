@@ -8,15 +8,15 @@ verify_ssl = true
 [packages]
 flask = "*"
 flask-sqlalchemy = "*"
-tweepy = "*"
+requests = "*"
 basilica = "*"
 python-decouple = "*"
 numpy = "*"
 sklearn = "*"
 gunicorn = "*"
 waitress = "*"
-heroku = "*"
 psycopg2 = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
