@@ -1,1 +1,1 @@
-web: gunicorn airbnb:APP
+web: gunicorn airbnb:app
