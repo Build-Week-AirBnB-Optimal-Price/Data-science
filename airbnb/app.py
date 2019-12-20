@@ -1,10 +1,10 @@
 from decouple import config
 from flask import Flask, render_template, request
-from .models import DB
+from models import DB
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
-# DB = SQLAlchemy(app)
+DB = SQLAlchemy(app)
 
 # def create_app():
 #     """Create and configure an instance of the Flask application"""
@@ -15,5 +15,5 @@ app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
 
 @app.route('/')
 def root():
-    # DB.create_all()
+    DB.create_all()
     return render_template('base.html', title='Home')

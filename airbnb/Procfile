@@ -1,1 +1,1 @@
-web: gunicorn airbnb:app
+web: gunicorn airbnb:app --preload
