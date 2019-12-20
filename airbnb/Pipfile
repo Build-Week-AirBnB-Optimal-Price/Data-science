@@ -17,6 +17,7 @@ gunicorn = "*"
 waitress = "*"
 psycopg2 = "*"
 python-dotenv = "*"
+sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"

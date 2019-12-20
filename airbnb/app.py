@@ -1,9 +1,11 @@
 from decouple import config
 from flask import Flask, render_template, request
-# from .models import DB
+from flask_sqlalchemy import SQLAlchemy
+from .models import DB
 
 app = Flask(__name__)
-#
+app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
+DB = SQLAlchemy(app)
 
 
 # def create_app():
