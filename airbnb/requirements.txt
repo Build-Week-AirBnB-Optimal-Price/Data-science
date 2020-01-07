@@ -1,4 +1,3 @@
-decouple
 basilica==0.2.8
 certifi==2019.11.28
 chardet==3.0.4
