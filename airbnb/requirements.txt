@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 -i https://pypi.org/simple/
->>>>>>> 2a98fa1fcf591d2fd58642cf1c3990344942af00
 basilica==0.2.8
 certifi==2019.11.28
 chardet==3.0.4
