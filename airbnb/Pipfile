@@ -14,10 +14,10 @@ python-decouple = "*"
 numpy = "*"
 sklearn = "*"
 gunicorn = "*"
-waitress = "*"
 psycopg2 = "*"
 python-dotenv = "*"
 sqlalchemy = "*"
+decouple = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.7.4"
