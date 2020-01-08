@@ -3,31 +3,35 @@ import pandas as pd
 from flask import Flask, render_template, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestRegressor
 import pickle
 
 # create df
-train = pd.read_csv('train.csv') # change file path
+train = pd.read_csv('final3_airbnb.csv') # change file path
 # drop null values
 train.dropna(inplace=True)
 # features and target
-target = 'Survived'
-features = ['Pclass', 'Age', 'SibSp', 'Fare']
+target = 'price'
+features = ['host_since','zipcode','room_type','maximum_nights','minimum_nights','extra_people','accommodates','neighbourhood',
+'beds','property_type','cancellation_policy','guests_included','bedrooms','bathrooms']
 # X matrix, y vector
 X = train[features]
 y = train[target]
 # model
-model = LogisticRegression()
+model = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
 model.fit(X, y)
 model.score(X, y)
 
 pickle.dump(model, open('model.pkl', 'wb'))
 model = pickle.load(open('model.pkl', 'rb'))
 
+DB = SQLAlchemy()
 
 """Create and configure an instance of the Flask application"""
 app = Flask(__name__)
 
 @app.route('/', methods = ['GET', 'POST'])
+
 def predict():
     # get data
     data = request.get_json(force=True)
