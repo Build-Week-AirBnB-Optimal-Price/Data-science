@@ -4,23 +4,42 @@ from flask import Flask, render_template, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error, mean_squared_log_error
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import make_pipeline
 import pickle
 
 # create df
-train = pd.read_csv('final3_airbnb.csv') # change file path
+trainval = pd.read_csv('final3_airbnb.csv') # change file path
 # drop null values
-train.dropna(inplace=True)
+trainval.dropna(inplace=True)
 # features and target
 target = 'price'
 features = ['host_since','zipcode','room_type','maximum_nights','minimum_nights','extra_people','accommodates','neighbourhood',
 'beds','property_type','cancellation_policy','guests_included','bedrooms','bathrooms']
 # X matrix, y vector
-X = train[features]
-y = train[target]
+def wrangle(X):
+    X = X.copy()
+    return X
+train_rentals, val_rentals = train_test_split(trainval, random_state=42)
+train = wrangle(train_rentals)
+val = wrangle(val_rentals)
+target = 'price'
+X_train = train.drop(columns=target)
+X_val = val.drop(columns=target)
+y_train = train[target]
+y_val = val[target]
+#X = train[features]
+#y = train[target]
 # model
-model = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
-model.fit(X, y)
-model.score(X, y)
+model = make_pipeline(
+    ce.OrdinalEncoder(),
+    RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
+)
+
+model.fit(X_train, y_train)
+model.predict(X_val)
+#model.score(X, y)
 
 pickle.dump(model, open('model.pkl', 'wb'))
 model = pickle.load(open('model.pkl', 'rb'))
