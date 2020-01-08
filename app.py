@@ -3,6 +3,7 @@ import pandas as pd
 from flask import Flask, render_template, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestRegressor
 import pickle
 
 # create df
@@ -17,7 +18,7 @@ features = ['host_since','zipcode','room_type','maximum_nights','minimum_nights'
 X = train[features]
 y = train[target]
 # model
-model = RandomForestRegressor()
+model = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
 model.fit(X, y)
 model.score(X, y)
 
