@@ -8,19 +8,22 @@ import category_encoders as ce
 import pickle
 
 # create df
-trainval = pd.read_csv('final3_airbnb.csv') # change file path
+trainval = pd.read_csv('final3_airbnb.csv')  # change file path
 
 # drop null values
 trainval.dropna(inplace=True)
 
 # setting features and target
 target = 'price'
-features = ['host_since','zipcode','room_type','maximum_nights','minimum_nights','extra_people','accommodates','neighbourhood',
-'beds','property_type','cancellation_policy','guests_included','bedrooms','bathrooms']
+features = ['host_since', 'zipcode', 'room_type', 'maximum_nights', 'minimum_nights',
+            'extra_people', 'accommodates', 'neighbourhood','beds', 'property_type',
+            'cancellation_policy', 'guests_included', 'bedrooms', 'bathrooms']
+
 
 def wrangle(X):
     X = X.copy()
     return X
+
 
 train_rentals, val_rentals = train_test_split(trainval, random_state=42)
 train = wrangle(train_rentals)
@@ -50,7 +53,8 @@ DB = SQLAlchemy()
 """Create and configure an instance of the Flask application"""
 app = Flask(__name__)
 
-@app.route('/', methods = ['GET', 'POST'])
+
+@app.route('/', methods=['GET', 'POST'])
 def predict():
     # get data
     data = request.get_json(force=True)
@@ -67,6 +71,7 @@ def predict():
 
     # return data
     return jsonify(results=output)
+
 
 if __name__ == '__main__':
     app.run()
