@@ -1,10 +1,7 @@
-from decouple import config
 import pandas as pd
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
-from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, mean_squared_log_error
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 import pickle
@@ -45,7 +42,7 @@ model = make_pipeline(
 
 model.fit(X_train, y_train)
 model.predict(X_val)
-#model.score(X, y)
+# model.score(X, y)
 
 pickle.dump(model, open('model.pkl', 'wb'))
 model = pickle.load(open('model.pkl', 'rb'))
@@ -56,7 +53,6 @@ DB = SQLAlchemy()
 app = Flask(__name__)
 
 @app.route('/', methods = ['GET', 'POST'])
-
 def predict():
     # get data
     data = request.get_json(force=True)
