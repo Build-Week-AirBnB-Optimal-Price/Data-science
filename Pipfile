@@ -17,6 +17,8 @@ psycopg2 = "*"
 python-dotenv = "*"
 sqlalchemy = "*"
 python-decouple = "*"
+category-encoders = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7.4"
