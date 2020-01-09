@@ -13,12 +13,11 @@ trainval = pd.read_csv('final3_airbnb.csv') # change file path
 # drop null values
 trainval.dropna(inplace=True)
 
-# features and target
+# setting features and target
 target = 'price'
 features = ['host_since','zipcode','room_type','maximum_nights','minimum_nights','extra_people','accommodates','neighbourhood',
 'beds','property_type','cancellation_policy','guests_included','bedrooms','bathrooms']
 
-# X matrix, y vector
 def wrangle(X):
     X = X.copy()
     return X
@@ -26,7 +25,6 @@ def wrangle(X):
 train_rentals, val_rentals = train_test_split(trainval, random_state=42)
 train = wrangle(train_rentals)
 val = wrangle(val_rentals)
-target = 'price'
 X_train = train.drop(columns=target)
 X_val = val.drop(columns=target)
 y_train = train[target]
@@ -43,7 +41,6 @@ model = make_pipeline(
 
 model.fit(X_train, y_train)
 model.predict(X_val)
-# model.score(X, y)
 
 pickle.dump(model, open('model.pkl', 'wb'))
 model = pickle.load(open('model.pkl', 'rb'))
