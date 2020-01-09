@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
+import category_encoders as ce
 import pickle
 
 # create df
