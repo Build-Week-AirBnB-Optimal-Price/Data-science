@@ -30,8 +30,8 @@ app = Flask(__name__)
 def analysis():
 
     text = request.get_json(force = True)
-    prediction = model.polarity_scores(text)
-    output = prediction.get('compund')
+    prediction = model.polarity_scores(str(text))
+    # output = prediction.get('compund')
 
     return jsonify(results = prediction)
 
