@@ -1,1 +1,1 @@
-web: gunicorn airbnb_src:app -t 120
+web: gunicorn airbnb_src\app:app -t 120
