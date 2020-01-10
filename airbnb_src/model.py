@@ -6,7 +6,10 @@ import category_encoders as ce
 from joblib import dump
 
 # create df
-trainval = pd.read_csv('final3_airbnb.csv')
+trainval = pd.read_csv('final3_airbnb.csv', header=1)
+drop_cols = ['description', 'price_category', 'number_of_reviews']
+trainval = trainval.drop(columns=drop_cols, axis=1)
+print(trainval.shape)
 
 # drop null values
 trainval.dropna(inplace=True)
@@ -43,4 +46,5 @@ model = make_pipeline(
 model.fit(X_train, y_train)
 model.predict(X_val)
 
+print(model)
 dump(model, 'model.pkl')
