@@ -1,33 +1,39 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
+import pickle
+import requests
+import json
 import numpy as np
 
 import nltk
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
+# def sentiment_analysis(input):
+#     sid = SentimentIntensityAnalyzer()
+#     scores = sid.polarity_scores(input)
+#     rating = scores.get('compound')
+#     return rating
 
-def sentiment_analysis(input):
-    sid = SentimentIntensityAnalyzer()
-    scores = sid.polarity_scores(input)
-    rating = scores.get('compound')
-    return rating
+sid = SentimentIntensityAnalyzer()
 
+pickle.dump(sid, open('model.pkl', 'wb'))
 
-def create_app():
-    app = Flask(__name__)
+model = pickle.load(open('model.pkl', 'rb'))
 
-    @app.route('/', methods = ['GET', 'POST'])
-    def root():
-        return render_template('base.html')
+app = Flask(__name__)
 
-    @app.route('/analyze', methods = ['GET', 'POST'])
-    def analysis(message = ''):
+# @app.route('/')
+# def root():
+#     return render_template('base.html', methods = ['POST'])
 
-        text = request.values['description_text']
-        prediction = sentiment_analysis(text)
-        description = text
-        message = f"On a scale of -1 to 1, your description's positivity is {prediction}."
+@app.route('/', methods = ['GET', 'POST'])
+def analysis():
 
-        return render_template('prediction.html', description = description, message = message)
+    text = request.get_json(force = True)
+    prediction = model.polarity_scores(text)
+    output = prediction.get('compund')
 
-    return app
+    return jsonify(results = prediction)
+
+if __name__ == '__main__':
+    app.run()
